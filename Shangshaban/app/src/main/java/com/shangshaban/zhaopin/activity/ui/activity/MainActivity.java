@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.shangshaban.zhaopin.activity.R;
+import com.shangshaban.zhaopin.activity.ui.fragment.HomePageFragment;
 import com.shangshaban.zhaopin.activity.util.JumpTools;
 import com.shangshaban.zhaopin.activity.util.Tools;
 
@@ -28,15 +32,33 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @BindView(R.id.container)
     ConstraintLayout container;
 
+    private HomePageFragment homePageFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bindFragment();
         bindListener();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    private void bindFragment() {
+        homePageFragment = new HomePageFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, homePageFragment);
+        transaction.commit();
+    }
+
+    private void switchFragmentText(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
+        transaction2.replace(R.id.container, fragment);
+        transaction2.commit();
     }
 
     @Override
@@ -63,6 +85,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
+                switchFragmentText(homePageFragment);
                 return true;
             case R.id.navigation_dashboard:
                 message.setText(R.string.title_dashboard);
