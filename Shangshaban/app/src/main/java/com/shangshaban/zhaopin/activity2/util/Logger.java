@@ -1,8 +1,8 @@
-package com.shangshaban.zhaopin.activity.util;
+package com.shangshaban.zhaopin.activity2.util;
 
 import android.util.Log;
 
-import com.shangshaban.zhaopin.activity.BuildConfig;
+import com.shangshaban.zhaopin.activity2.BuildConfig;
 
 
 /**

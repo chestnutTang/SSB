@@ -1,12 +1,11 @@
-package com.shangshaban.zhaopin.activity.ui.activity;
+package com.shangshaban.zhaopin.activity2.ui.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.shangshaban.zhaopin.activity.app.SsbApplication;
+import com.shangshaban.zhaopin.activity2.app.SsbApplication;
 
 import butterknife.ButterKnife;
 

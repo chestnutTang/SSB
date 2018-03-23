@@ -1,13 +1,11 @@
-package com.shangshaban.zhaopin.activity.util;
+package com.shangshaban.zhaopin.activity2.util;
 
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.shangshaban.zhaopin.activity.R;
-import com.shangshaban.zhaopin.activity.app.SsbApplication;
-
-import static com.shangshaban.zhaopin.activity.util.TipTools.toast;
+import com.shangshaban.zhaopin.activity2.R;
+import com.shangshaban.zhaopin.activity2.app.SsbApplication;
 
 /**
  * peterDemoExcels
@@ -36,7 +34,7 @@ public class Tools {
 
     public static void logoutSystem(Context context) {
         if ((System.currentTimeMillis() - lastClickTime) > 2000) {
-            toast(context,"再按一次退出" + context.getResources().getString(R.string.app_name));
+            TipTools.toast(context,"再按一次退出" + context.getResources().getString(R.string.app_name));
             // 记录用户首次点击的时间
             lastClickTime = System.currentTimeMillis();
         } else {

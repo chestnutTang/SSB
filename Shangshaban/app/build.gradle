@@ -7,7 +7,7 @@ android {
         jumboMode true
     }
     defaultConfig {
-        applicationId "com.shangshaban.zhaopin.activity"
+        applicationId "com.shangshaban.zhaopin.activity2"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1

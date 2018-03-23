@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.app;
+package com.shangshaban.zhaopin.activity2.app;
 
 import android.app.Activity;
 import android.content.Context;

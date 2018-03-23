@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.activity;
+package com.shangshaban.zhaopin.activity2.ui.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,7 +19,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.shangshaban.zhaopin.activity.R;
+
+import com.shangshaban.zhaopin.activity2.R;
 
 import java.util.List;
 

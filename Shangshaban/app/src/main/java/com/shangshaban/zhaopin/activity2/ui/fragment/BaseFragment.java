@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.fragment;
+package com.shangshaban.zhaopin.activity2.ui.fragment;
 
 import android.support.v4.app.Fragment;
 import android.view.View;

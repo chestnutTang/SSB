@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.view;
+package com.shangshaban.zhaopin.activity2.ui.view;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

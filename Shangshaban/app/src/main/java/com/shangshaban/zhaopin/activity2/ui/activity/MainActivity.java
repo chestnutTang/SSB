@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.activity;
+package com.shangshaban.zhaopin.activity2.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.shangshaban.zhaopin.activity.R;
-import com.shangshaban.zhaopin.activity.ui.fragment.HomePageFragment;
-import com.shangshaban.zhaopin.activity.util.JumpTools;
-import com.shangshaban.zhaopin.activity.util.Tools;
+import com.shangshaban.zhaopin.activity2.R;
+import com.shangshaban.zhaopin.activity2.ui.fragment.HomePageFragment;
+import com.shangshaban.zhaopin.activity2.util.JumpTools;
+import com.shangshaban.zhaopin.activity2.util.Tools;
 
 import butterknife.BindView;
 

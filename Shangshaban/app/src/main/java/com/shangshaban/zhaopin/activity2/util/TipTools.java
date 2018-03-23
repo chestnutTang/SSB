@@ -1,14 +1,11 @@
-package com.shangshaban.zhaopin.activity.util;
+package com.shangshaban.zhaopin.activity2.util;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.shangshaban.zhaopin.activity.app.SsbApplication;
-import com.shangshaban.zhaopin.activity.ui.activity.SettingsActivity;
-
-import static com.shangshaban.zhaopin.activity.util.JumpTools.jumpOnly;
+import com.shangshaban.zhaopin.activity2.ui.activity.SettingsActivity;
 
 /**
  * 提示类的工具类
@@ -34,7 +31,7 @@ public class TipTools {
             @Override
             public void onClick(View v) {
                 toast(context,rightStr);
-                jumpOnly(view.getContext(), SettingsActivity.class);
+                JumpTools.jumpOnly(view.getContext(), SettingsActivity.class);
             }
         }).show();
     }

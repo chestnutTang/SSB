@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.fragment;
+package com.shangshaban.zhaopin.activity2.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.shangshaban.zhaopin.activity.R;
-import com.shangshaban.zhaopin.activity.ui.view.CircleImageViewGlide;
+import com.shangshaban.zhaopin.activity2.R;
+import com.shangshaban.zhaopin.activity2.ui.view.CircleImageViewGlide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

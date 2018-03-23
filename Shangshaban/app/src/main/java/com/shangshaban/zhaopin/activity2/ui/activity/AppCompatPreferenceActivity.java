@@ -1,4 +1,4 @@
-package com.shangshaban.zhaopin.activity.ui.activity;
+package com.shangshaban.zhaopin.activity2.ui.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
