@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         super.onClick(v);
         switch (v.getId()) {
             case R.id.message:
-                JumpTools.jumpOnly(this, SettingsActivity.class);
+                JumpTools.jumpOnly(this, OpenGLActivity.class);
                 break;
             default:
                 break;
