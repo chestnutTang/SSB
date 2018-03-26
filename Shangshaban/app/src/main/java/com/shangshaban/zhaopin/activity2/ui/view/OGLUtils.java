@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
  * 2018/3/24
  */
 public class OGLUtils {
-    public static String SOURCE_DEFAULT_NAME_FRAGMENT = "fragment.glsl";
-    public static String SOURCE_DEFAULT_NAME_VERTEX = "vertex.glsl";
+    public final static String SOURCE_DEFAULT_NAME_FRAGMENT = "fragment.glsl";
+    public final static String SOURCE_DEFAULT_NAME_VERTEX = "vertex.glsl";
 
     public OGLUtils() {
     }
@@ -45,9 +45,10 @@ public class OGLUtils {
 
     public static String getShaderSource(Context context, String sourseName) {
         StringBuffer shaderSource = new StringBuffer();
+        BufferedReader br = null;
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(context.getAssets().open(sourseName)));
+             br = new BufferedReader(new InputStreamReader(context.getAssets().open(sourseName),"utf-8"));
             String tempStr = null;
 
             while(null != (tempStr = br.readLine())) {
@@ -55,6 +56,15 @@ public class OGLUtils {
             }
         } catch (IOException var5) {
             var5.printStackTrace();
+        }finally {
+            try {
+                if (br !=null){
+
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return shaderSource.toString();

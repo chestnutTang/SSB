@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 import com.shangshaban.zhaopin.activity2.R;
+
+import java.lang.ref.WeakReference;
 
 /**
  * songzhengpeng
@@ -35,33 +38,46 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
     private static final float NS2S = 1.0E-9F;
     private float timestamp;
     private float[] angle = new float[3];
-    Handler mHandler = new Handler() {
+
+    static class MyHandler extends Handler {
+        WeakReference<GLPanorama> weakReference;
+
+        MyHandler(GLPanorama context) {
+            weakReference = new WeakReference<>(context);
+        }
+
+        @Override
         public void handleMessage(Message msg) {
-            switch(msg.what) {
+            super.handleMessage(msg);
+            GLPanorama glPanorama = weakReference.get();
+            switch (msg.what) {
                 case 101:
-                    GLPanorama.Sensordt info = (GLPanorama.Sensordt)msg.obj;
+                    GLPanorama.Sensordt info = (GLPanorama.Sensordt) msg.obj;
                     float y = info.getSensorY();
                     float x = info.getSensorX();
-                    float dy = y - GLPanorama.this.mPreviousY;
-                    float dx = x - GLPanorama.this.mPreviousX;
-                    Ball var10000 = GLPanorama.this.mBall;
+                    float dy = y - glPanorama.mPreviousY;
+                    float dx = x - glPanorama.mPreviousX;
+                    Ball var10000 = glPanorama.mBall;
                     var10000.yAngle += dx * 2.0F;
-                    var10000 = GLPanorama.this.mBall;
+                    var10000 = glPanorama.mBall;
                     var10000.xAngle += dy * 0.5F;
-                    if (GLPanorama.this.mBall.xAngle < -50.0F) {
-                        GLPanorama.this.mBall.xAngle = -50.0F;
-                    } else if (GLPanorama.this.mBall.xAngle > 50.0F) {
-                        GLPanorama.this.mBall.xAngle = 50.0F;
+                    if (glPanorama.mBall.xAngle < -50.0F) {
+                        glPanorama.mBall.xAngle = -50.0F;
+                    } else if (glPanorama.mBall.xAngle > 50.0F) {
+                        glPanorama.mBall.xAngle = 50.0F;
                     }
 
-                    GLPanorama.this.mPreviousY = y;
-                    GLPanorama.this.mPreviousX = x;
-                    GLPanorama.this.rotate();
+                    glPanorama.mPreviousY = y;
+                    glPanorama.mPreviousX = x;
+                    glPanorama.rotate();
+                    break;
                 default:
+                    break;
             }
         }
-    };
-    private Handler mHandlers = new Handler();
+    }
+
+    private MyHandler mHandlers = new MyHandler(GLPanorama.this);
     int yy = 0;
 
     public GLPanorama(Context context) {
@@ -88,8 +104,8 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
 
     private void initView() {
         LayoutInflater.from(this.mContext).inflate(R.layout.panoramalayout, this);
-        this.mGlSurfaceView = (IViews)this.findViewById(R.id.mIViews);
-        this.img = (ImageView)this.findViewById(R.id.img);
+        this.mGlSurfaceView = (IViews) this.findViewById(R.id.mIViews);
+        this.img = (ImageView) this.findViewById(R.id.img);
         this.img.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 GLPanorama.this.zero();
@@ -98,7 +114,7 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
     }
 
     private void initSensor() {
-        this.mSensorManager = (SensorManager)this.mContext.getSystemService("sensor");
+        this.mSensorManager = (SensorManager) this.mContext.getSystemService("sensor");
         this.mGyroscopeSensor = this.mSensorManager.getDefaultSensor(4);
         this.mSensorManager.registerListener(this, this.mGyroscopeSensor, 0);
     }
@@ -106,13 +122,13 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == 4) {
             if (this.timestamp != 0.0F) {
-                float dT = ((float)sensorEvent.timestamp - this.timestamp) * 1.0E-9F;
+                float dT = ((float) sensorEvent.timestamp - this.timestamp) * 1.0E-9F;
                 this.angle[0] += sensorEvent.values[0] * dT;
                 this.angle[1] += sensorEvent.values[1] * dT;
                 this.angle[2] += sensorEvent.values[2] * dT;
-                float anglex = (float)Math.toDegrees((double)this.angle[0]);
-                float angley = (float)Math.toDegrees((double)this.angle[1]);
-                float anglez = (float)Math.toDegrees((double)this.angle[2]);
+                float anglex = (float) Math.toDegrees((double) this.angle[0]);
+                float angley = (float) Math.toDegrees((double) this.angle[1]);
+                float anglez = (float) Math.toDegrees((double) this.angle[2]);
                 GLPanorama.Sensordt info = new GLPanorama.Sensordt();
                 info.setSensorX(angley);
                 info.setSensorY(anglex);
@@ -120,10 +136,10 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
                 Message msg = new Message();
                 msg.what = 101;
                 msg.obj = info;
-                this.mHandler.sendMessage(msg);
+                mHandlers.sendMessage(msg);
             }
 
-            this.timestamp = (float)sensorEvent.timestamp;
+            this.timestamp = (float) sensorEvent.timestamp;
         }
 
     }
@@ -135,7 +151,7 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
         this.mSensorManager.unregisterListener(this);
         float y = event.getY();
         float x = event.getX();
-        switch(event.getAction()) {
+        switch (event.getAction()) {
             case 1:
                 this.mSensorManager.registerListener(this, this.mGyroscopeSensor, 0);
                 break;
@@ -151,6 +167,9 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
                 }
 
                 this.rotate();
+                break;
+            default:
+                break;
         }
 
         this.mPreviousYs = y;
@@ -166,14 +185,15 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
     }
 
     private void rotate() {
-        RotateAnimation anim = new RotateAnimation(this.predegrees, -this.mBall.yAngle, 1, 0.5F, 1, 0.5F);
+        RotateAnimation anim = new RotateAnimation(this.predegrees, -this.mBall.yAngle, 1, 0.5F,
+                1, 0.5F);
         anim.setDuration(200L);
         this.img.startAnimation(anim);
         this.predegrees = -this.mBall.yAngle;
     }
 
     private void zero() {
-        this.yy = (int)((this.mBall.yAngle - 90.0F) / 10.0F);
+        this.yy = (int) ((this.mBall.yAngle - 90.0F) / 10.0F);
         this.mHandlers.post(new Runnable() {
             public void run() {
                 if (GLPanorama.this.yy != 0) {
@@ -197,7 +217,7 @@ public class GLPanorama extends RelativeLayout implements SensorEventListener {
         });
     }
 
-    class Sensordt {
+   static class Sensordt {
         float sensorX;
         float sensorY;
         float sensorZ;

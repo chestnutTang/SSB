@@ -30,7 +30,11 @@ public class CircleImageViewGlide extends BitmapTransformation {
     }
 
     public CircleImageViewGlide(int dp) {
-        radius = Resources.getSystem().getDisplayMetrics().density * dp;
+        dd(dp);
+    }
+
+    public static float dd(int dp) {
+        return radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
 
     @Override
@@ -48,12 +52,14 @@ public class CircleImageViewGlide extends BitmapTransformation {
         if (radius > 0) {
             result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
             if (result == null) {
-                result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+                result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config
+                        .ARGB_8888);
             }
 
             Canvas canvas = new Canvas(result);
             Paint paint = new Paint();
-            paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
+            paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader
+                    .TileMode.CLAMP));
             paint.setAntiAlias(true);
             RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
             canvas.drawRoundRect(rectF, radius, radius, paint);
@@ -72,7 +78,8 @@ public class CircleImageViewGlide extends BitmapTransformation {
 
             Canvas canvas = new Canvas(result);
             Paint paint = new Paint();
-            paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
+            paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader
+                    .TileMode.CLAMP));
             paint.setAntiAlias(true);
             float r = size / 2f;
             canvas.drawCircle(r, r, r, paint);
@@ -87,7 +94,9 @@ public class CircleImageViewGlide extends BitmapTransformation {
 
     @Override
     public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-        messageDigest.reset();
+        if (messageDigest != null) {
+            messageDigest.reset();
+        }
     }
 }
 
